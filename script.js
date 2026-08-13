@@ -35,7 +35,7 @@ async function fetchTrackMeta(videoId) {
 
   const fallback = {
     videoId,
-    title: "लोड हो रहा है…",
+    title: "It's loading…",
     author: "",
     thumbnail: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
   };
@@ -299,7 +299,7 @@ function renderSheetSkeleton() {
     item.innerHTML = `
       <div class="item-thumb"><img alt="" /></div>
       <div class="item-info">
-        <p class="item-title">लोड हो रहा है…</p>
+        <p class="item-title">It's loading…</p>
         <p class="item-artist"></p>
       </div>
     `;
