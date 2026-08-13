@@ -87,11 +87,12 @@ body {
   z-index: 20;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 16px;
   animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+.topbar-left,
 .topbar-right {
   display: flex;
   align-items: center;
@@ -623,4 +624,4 @@ body {
   .player {
     margin-bottom: 28px;
   }
-}
+  }
