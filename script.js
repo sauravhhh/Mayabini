@@ -225,8 +225,14 @@ function togglePlay() {
 
 els.btnPlay.addEventListener("click", togglePlay);
 els.tapToStart.addEventListener("click", togglePlay);
-els.btnNext.addEventListener("click", () => player && player.nextVideo());
-els.btnPrev.addEventListener("click", () => player && player.previousVideo());
+
+function goToOffset(offset) {
+  if (!player || !playlistIds.length) return;
+  const target = (currentIndex + offset + playlistIds.length) % playlistIds.length;
+  player.playVideoAt(target);
+}
+els.btnNext.addEventListener("click", () => goToOffset(1));
+els.btnPrev.addEventListener("click", () => goToOffset(-1));
 
 // --- seeking (click + drag on the progress bar) ---
 function ratioFromEvent(clientX) {
@@ -331,4 +337,4 @@ function highlightActiveSheetItem() {
       Number(item.dataset.index) === currentIndex
     );
   });
-}
+      }
