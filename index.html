@@ -30,10 +30,10 @@
   </div>
 
   <!-- ============ TOP BAR ============
-       Clock, Instagram, and YouTube Music are grouped on the
-       top-right, in that order, per the requested layout. -->
+       Clock + Instagram sit together in the top-left corner.
+       YouTube Music stays top-right. Middle is left empty. -->
   <header class="topbar">
-    <div class="topbar-right">
+    <div class="topbar-left">
       <div id="clock" class="glass pill clock">
         <span id="clock-time">--:--</span>
         <span id="clock-date" class="clock-date"></span>
@@ -53,7 +53,9 @@
           <circle cx="17.4" cy="6.6" r="1.15" fill="currentColor"/>
         </svg>
       </a>
+    </div>
 
+    <div class="topbar-right">
       <a
         id="yt-music-btn"
         class="glass pill yt-btn"
@@ -168,4 +170,4 @@
   <!-- YouTube IFrame Player API loads itself via script.js -->
   <script src="script.js"></script>
 </body>
-</html>
+            </html>
