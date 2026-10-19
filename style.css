@@ -624,31 +624,6 @@ body {
   background: rgba(246, 237, 224, 0.25);
 }
 
-/* Session switcher: Golden Hour / Durga Puja */
-.sheet-tabs {
-  display: flex;
-  gap: 6px;
-  justify-content: center;
-  padding: 12px 20px 2px;
-}
-.sheet-tabs button {
-  border: 1px solid rgba(246, 237, 224, 0.15);
-  background: transparent;
-  color: rgba(246, 237, 224, 0.6);
-  font: inherit;
-  font-size: 12.5px;
-  font-weight: 600;
-  border-radius: 999px;
-  padding: 8px 18px;
-  cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-}
-.sheet-tabs button.on {
-  background: rgba(232, 163, 61, 0.16);
-  border-color: var(--gold);
-  color: var(--gold);
-}
-
 .sheet-header {
   display: flex;
   align-items: center;
