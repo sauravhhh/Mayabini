@@ -1,24 +1,9 @@
 // =====================================================================
-// SESSIONS — switchable playlists
+// CONFIG
 // =====================================================================
-const SESSIONS = {
-  gold: {
-    id: "PL3cTse0YhM79CcS9HP_BpzPkuJe94EYV7", // Zubeen Garg Golden years
-    label: "Golden Hour",
-    sub: "Golden Hour Sessions",
-  },
-  puja: {
-    id: "PLBXc-iSV43NQ", // his own Durga Puja Songs playlist
-    label: "Durga Puja",
-    sub: "Durga Puja Sessions",
-  },
-};
-let session = "gold";
-try {
-  const saved = localStorage.getItem("goldie-session");
-  if (saved && SESSIONS[saved]) session = saved;
-} catch {}
-const PLAYLIST_ID = SESSIONS[session].id;
+// Playlist ID pulled from:
+// https://youtube.com/playlist?list=PL3cTse0YhM79CcS9HP_BpzPkuJe94EYV7
+const PLAYLIST_ID = "PL3cTse0YhM79CcS9HP_BpzPkuJe94EYV7";
 
 // =====================================================================
 // CLOCK (top-left, live, local time)
@@ -141,8 +126,6 @@ const els = {
   timerMenu: document.getElementById("timer-menu"),
   timerStatus: document.getElementById("timer-status"),
   timerDot: document.getElementById("timer-dot"),
-  sessionSub: document.getElementById("session-sub"),
-  ytMusicBtn: document.getElementById("yt-music-btn"),
 };
 
 // =====================================================================
@@ -226,10 +209,7 @@ function onPlayerStateChange(e) {
         playlistIds = ids;
         if (firstLoad) {
           els.sheetCount.textContent = ids.length + " tracks";
-          if (sheetBuilt || els.playlistSheet.classList.contains("open")) {
-            sheetBuilt = true;
-            buildSheetItems();
-          }
+          if (sheetBuilt) buildSheetItems();
         }
       }
 
@@ -379,51 +359,6 @@ els.progressBar.addEventListener("pointerup", (e) => {
   dragging = false;
   seekToRatio(ratioFromEvent(e.clientX));
 });
-
-// =====================================================================
-// SESSION SWITCHER (Golden Hour <-> Durga Puja)
-// =====================================================================
-function renderSession() {
-  document.querySelectorAll(".sheet-tabs button").forEach((b) => {
-    const active = b.dataset.session === session;
-    b.classList.toggle("on", active);
-    b.setAttribute("aria-selected", String(active));
-  });
-  els.sessionSub.textContent = SESSIONS[session].sub;
-  els.ytMusicBtn.href =
-    "https://youtube.com/playlist?list=" + SESSIONS[session].id;
-}
-
-function switchSession(key) {
-  if (!SESSIONS[key] || key === session || !player) return;
-  session = key;
-  try {
-    localStorage.setItem("goldie-session", key);
-  } catch {}
-  // reset track state; the new playlist reports itself via onPlayerStateChange
-  playlistIds = [];
-  currentIndex = 0;
-  currentVideoId = null;
-  duration = 0;
-  currentTime = 0;
-  sheetBuilt = false;
-  if (metaObserver) metaObserver.disconnect();
-  els.sheetList.innerHTML = "";
-  els.sheetCount.textContent = "";
-  els.trackTitle.textContent = "It's loading…";
-  els.trackArtist.textContent = "";
-  els.trackThumb.removeAttribute("src");
-  renderProgress();
-  renderSession();
-  try {
-    player.loadPlaylist({ listType: "playlist", list: SESSIONS[key].id });
-  } catch {}
-}
-
-document.querySelectorAll(".sheet-tabs button").forEach((b) => {
-  b.addEventListener("click", () => switchSession(b.dataset.session));
-});
-renderSession();
 
 // =====================================================================
 // VOLUME
